@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bianxing.bianxing.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.bianxing.bianxing.model.User">
+		<id column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="platform_id" property="platformId" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="avatar" property="avatar" jdbcType="VARCHAR" />
+		<result column="intro" property="intro" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="height" property="height" jdbcType="FLOAT" />
+		<result column="weight" property="weight" jdbcType="FLOAT" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="rate_fat" property="rateFat" jdbcType="FLOAT" />
+		<result column="goal" property="goal" jdbcType="VARCHAR" />
+	</resultMap>
+	  <sql id="Base_Column_List" >
+    user_id, platform_id, mobile, avatar, intro, nickname, gender, address, height, weight, 
+    age, rate_fat, goal, create_time, last_login_time, last_login_ip, device_type
+  </sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+	
+
+	<insert id="insert" parameterType="com.bianxing.bianxing.model.User"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_user
+		(platform_id,mobile,avatar,intro,nickname,gender,address,height,weight,age,rate_fat,goal,create_time,last_login_time,last_login_ip,device_type)
+		values
+		(#{platformId,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{avatar,jdbcType=VARCHAR},#{intro,jdbcType=VARCHAR},#{nickname,jdbcType=VARCHAR},#{gender,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},
+		#{height,jdbcType=FLOAT},#{weight,jdbcType=FLOAT},#{age,jdbcType=INTEGER},#{rateFat,jdbcType=FLOAT},#{goal,jdbcType=VARCHAR},#{createTime,jdbcType=BIGINT},
+		#{lastLoginTime,jdbcType=BIGINT},#{lastLoginIp,jdbcType=VARCHAR},#{deviceType,jdbcType=VARCHAR})
+	</insert>
+
+
+	<select id="selectByPlatformId" resultMap="BaseResultMap">
+		select * from t_user
+		where platform_id = #{0}
+	</select>
+
+	<select id="selectByMobile" resultMap="BaseResultMap">
+		select * from t_user
+		where mobile = #{0} 
+	</select>
+
+
+	<insert id="insertSelective" parameterType="com.bianxing.bianxing.model.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="intro != null" >
+        intro,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="rateFat != null" >
+        rate_fat,
+      </if>
+      <if test="goal != null" >
+        goal,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip,
+      </if>
+      <if test="deviceType != null" >
+        device_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=REAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=REAL},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="rateFat != null" >
+        #{rateFat,jdbcType=REAL},
+      </if>
+      <if test="goal != null" >
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bianxing.bianxing.model.User" >
+    update t_user
+    <set >
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=REAL},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=REAL},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="rateFat != null" >
+        rate_fat = #{rateFat,jdbcType=REAL},
+      </if>
+      <if test="goal != null" >
+        goal = #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bianxing.bianxing.model.User" >
+    update t_user
+    set platform_id = #{platformId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BIT},
+      address = #{address,jdbcType=VARCHAR},
+      height = #{height,jdbcType=REAL},
+      weight = #{weight,jdbcType=REAL},
+      age = #{age,jdbcType=INTEGER},
+      rate_fat = #{rateFat,jdbcType=REAL},
+      goal = #{goal,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      last_login_time = #{lastLoginTime,jdbcType=BIGINT},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

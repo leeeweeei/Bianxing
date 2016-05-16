@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bianxing.bianxing.dao.PhotoMapper" >
+	<resultMap id="BaseResultMap" type="com.bianxing.bianxing.model.Photo" >
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="BIGINT" />
+		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+    id, file_name, create_time, create_user_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+		<include refid="Base_Column_List" />
+    from t_photo
+    where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_photo
+    where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.bianxing.bianxing.model.Photo" useGeneratedKeys="true" keyProperty="id">
+    insert into t_photo (id, file_name, create_time, 
+      create_user_id)
+    values (#{id,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bianxing.bianxing.model.Photo" useGeneratedKeys="true" keyProperty="id">
+    insert into t_photo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+        id,
+			</if>
+			<if test="fileName != null" >
+        file_name,
+			</if>
+			<if test="createTime != null" >
+        create_time,
+			</if>
+			<if test="createUserId != null" >
+        create_user_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+        #{id,jdbcType=BIGINT},
+			</if>
+			<if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+			</if>
+			<if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bianxing.bianxing.model.Photo" >
+    update t_photo
+		<set >
+			<if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+			</if>
+			<if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+			</if>
+		</set>
+    where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bianxing.bianxing.model.Photo" >
+    update t_photo
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

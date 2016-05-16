@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bianxing.bianxing.dao.ExerciseMapper" >
+  <resultMap id="BaseResultMap" type="com.bianxing.bianxing.model.Exercise" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="action_id" property="actionId" jdbcType="BIGINT" />
+    <result column="action_type" property="actionType" jdbcType="INTEGER" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+    <result column="unit" property="unit" jdbcType="INTEGER" />
+    <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, action_id, action_type, action_name, create_time, last_modify_time, 
+    unit, delete_status,source
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_exercise
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_exercise
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bianxing.bianxing.model.Exercise" useGeneratedKeys="true" keyProperty="id">
+    insert into t_exercise (id, user_id, action_id, 
+      action_type, action_name, create_time, 
+      last_modify_time, unit, delete_status,source
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{actionId,jdbcType=BIGINT}, 
+      #{actionType,jdbcType=INTEGER}, #{actionName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{lastModifyTime,jdbcType=BIGINT}, #{unit,jdbcType=INTEGER}, #{deleteStatus,jdbcType=INTEGER},#{source,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bianxing.bianxing.model.Exercise" >
+    insert into t_exercise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="actionType != null" >
+        action_type,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=BIGINT},
+      </if>
+      <if test="actionType != null" >
+        #{actionType,jdbcType=INTEGER},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bianxing.bianxing.model.Exercise" >
+    update t_exercise
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="actionId != null" >
+        action_id = #{actionId,jdbcType=BIGINT},
+      </if>
+      <if test="actionType != null" >
+        action_type = #{actionType,jdbcType=INTEGER},
+      </if>
+      <if test="actionName != null" >
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bianxing.bianxing.model.Exercise" >
+    update t_exercise
+    set user_id = #{userId,jdbcType=BIGINT},
+      action_id = #{actionId,jdbcType=BIGINT},
+      action_type = #{actionType,jdbcType=INTEGER},
+      action_name = #{actionName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+      unit = #{unit,jdbcType=INTEGER},
+      delete_status = #{deleteStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="selectFromLastSyncTime" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from t_exercise
+    where last_modify_time > #{lastSyncTime}
+    <if test="userId != null">
+			and user_id = #{userId} 
+		</if>
+    <include refid="common.pagingCriteria" />
+  </select>
+  <select id="selectTotalFromLastSyncTime" resultType="java.lang.Long">
+		select count(id) from t_exercise where last_modify_time > #{lastSyncTime}
+		<if test="userId != null">
+			and user_id = #{userId} 
+		</if>
+	</select>
+</mapper>

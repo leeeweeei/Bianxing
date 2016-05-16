@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bianxing.bianxing.dao.ShowUserLikeRelMapper" >
+  <resultMap id="BaseResultMap" type="com.bianxing.bianxing.model.ShowUserLikeRel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="show_id" property="showId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, show_id, user_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_show_user_like_rel
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="select" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_show_user_like_rel
+    where show_id = #{showId} and user_id = #{userId}
+    limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_show_user_like_rel
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="delete" >
+    delete from t_show_user_like_rel
+    where user_id = #{userId} and show_id = #{showId}
+  </delete>
+  <insert id="insert" parameterType="com.bianxing.bianxing.model.ShowUserLikeRel" >
+    insert into t_show_user_like_rel (id, show_id, user_id, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{showId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bianxing.bianxing.model.ShowUserLikeRel" >
+    insert into t_show_user_like_rel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bianxing.bianxing.model.ShowUserLikeRel" >
+    update t_show_user_like_rel
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bianxing.bianxing.model.ShowUserLikeRel" >
+    update t_show_user_like_rel
+    set show_id = #{showId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
